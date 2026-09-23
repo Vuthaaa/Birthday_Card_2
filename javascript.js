@@ -103,20 +103,42 @@ function closeMail() {
    MAIN BUTTON
 ================================ */
 
-mailButton?.addEventListener("click", () => {
+// mailButton?.addEventListener("click", () => {
 
-  openMail();
+//   openMail();
 
-  birthdayMusic?.play().catch(() => {
+//   birthdayMusic?.play().catch(() => {
 
-    console.log(
-      "Music playback was blocked by the browser."
-    );
+//     console.log(
+//       "Music playback was blocked by the browser."
+//     );
 
-  });
+//   });
 
-});
+// });
+mailButton?.addEventListener("click", async () => {
 
+    openMail();
+
+    if (!birthdayMusic) {
+      console.error("❌ birthdayMusic element not found!");
+      return;
+    }
+
+    try {
+      birthdayMusic.volume = 1;
+      birthdayMusic.currentTime = 0;
+
+      await birthdayMusic.play();
+
+      console.log("🎵 Birthday music is playing!");
+
+    } catch (error) {
+      console.error("❌ Audio failed to play:", error);
+    }
+
+  }
+);
 
 /* ================================
    OPEN CARD
