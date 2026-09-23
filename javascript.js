@@ -135,6 +135,7 @@ mailButton?.addEventListener("click", async () => {
 
     } catch (error) {
       console.error("❌ Audio failed to play:", error);
+      alert("Audio error: " + error.name + " - " + error.message);
     }
 
   }
