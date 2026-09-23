@@ -1,7 +1,7 @@
 const dateText = "13 January";
 
 const dateElement = document.querySelector(".date__of__birth span");
-const mailButton = document.querySelector(".mail");
+const mailButton = document.querySelector("#btn__letter");
 const mailBox = document.querySelector(".boxMail");
 const closeButton = document.querySelector(".close-letter");
 const birthdayMusic = document.getElementById("birthdayMusic");
