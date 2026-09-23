@@ -100,56 +100,47 @@ function closeMail() {
 
 
 /* ================================
-   MAIN BUTTON
+   PLAY BIRTHDAY MUSIC
+   iPhone / iOS FRIENDLY
 ================================ */
 
-mailButton?.addEventListener("click", async () => {
+async function playBirthdayMusic() {
 
-    openMail();
+  if (!birthdayMusic) {
+    console.error("❌ birthdayMusic element not found!");
+    return;
+  }
 
-    if (!birthdayMusic) {
-      console.error("❌ birthdayMusic element not found!");
-      return;
-    }
+  try {
 
-    try {
-      birthdayMusic.volume = 1;
-      birthdayMusic.currentTime = 0;
+    birthdayMusic.volume = 1;
+    birthdayMusic.currentTime = 0;
 
-      await birthdayMusic.play();
+    await birthdayMusic.play();
 
-      console.log("🎵 Birthday music is playing!");
+    console.log("🎵 Birthday music is playing!");
 
-    } catch (error) {
-      console.error("❌ Audio failed to play:", error);
-    }
+  } catch (error) {
+
+    console.error("❌ Audio failed to play:", error);
 
   }
-);
+
+}
 
 
 /* ================================
-   UNLOCK AUDIO FOR iOS
-   (plays + instantly pauses on the
-   very first tap anywhere, so the
-   later real play() call works
-   reliably on iOS Safari)
+   MAIN BUTTON
 ================================ */
 
-let audioUnlocked = false;
+mailButton?.addEventListener("click", () => {
 
-function unlockAudio() {
-  if (audioUnlocked || !birthdayMusic) return;
+  // IMPORTANT:
+  // Keep play() directly inside the user's click event.
+  openMail();
+  playBirthdayMusic();
 
-  birthdayMusic.play().then(() => {
-    birthdayMusic.pause();
-    birthdayMusic.currentTime = 0;
-    audioUnlocked = true;
-  }).catch(() => {});
-}
-
-document.addEventListener("touchstart", unlockAudio, { once: true });
-document.addEventListener("click", unlockAudio, { once: true });
+});
 
 
 /* ================================
@@ -195,8 +186,10 @@ mailBox?.addEventListener(
   "click",
   (event) => {
 
-    if (event.target === mailBox ||
-        event.target.classList.contains("letter-backdrop")) {
+    if (
+      event.target === mailBox ||
+      event.target.classList.contains("letter-backdrop")
+    ) {
 
       closeMail();
 
