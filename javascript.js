@@ -103,19 +103,6 @@ function closeMail() {
    MAIN BUTTON
 ================================ */
 
-// mailButton?.addEventListener("click", () => {
-
-//   openMail();
-
-//   birthdayMusic?.play().catch(() => {
-
-//     console.log(
-//       "Music playback was blocked by the browser."
-//     );
-
-//   });
-
-// });
 mailButton?.addEventListener("click", async () => {
 
     openMail();
@@ -135,11 +122,35 @@ mailButton?.addEventListener("click", async () => {
 
     } catch (error) {
       console.error("❌ Audio failed to play:", error);
-      alert("Audio error: " + error.name + " - " + error.message);
     }
 
   }
 );
+
+
+/* ================================
+   UNLOCK AUDIO FOR iOS
+   (plays + instantly pauses on the
+   very first tap anywhere, so the
+   later real play() call works
+   reliably on iOS Safari)
+================================ */
+
+let audioUnlocked = false;
+
+function unlockAudio() {
+  if (audioUnlocked || !birthdayMusic) return;
+
+  birthdayMusic.play().then(() => {
+    birthdayMusic.pause();
+    birthdayMusic.currentTime = 0;
+    audioUnlocked = true;
+  }).catch(() => {});
+}
+
+document.addEventListener("touchstart", unlockAudio, { once: true });
+document.addEventListener("click", unlockAudio, { once: true });
+
 
 /* ================================
    OPEN CARD
