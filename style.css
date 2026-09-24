@@ -24,6 +24,8 @@
 html {
   min-height: 100%;
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -217,11 +219,8 @@ button:focus-visible {
 
 .title h1 {
   display: flex;
-
   margin: 0;
-
-  line-height: .95;
-
+  line-height: 1.15;
   letter-spacing: -2px;
 }
 
@@ -1768,6 +1767,7 @@ button:focus-visible {
 
   .title h1 {
     justify-content: center;
+    font-size: clamp(2.6rem, 8vw, 4rem);
   }
 
   .birthday {
