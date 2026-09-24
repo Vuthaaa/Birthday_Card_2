@@ -104,41 +104,55 @@ function closeMail() {
    iPhone / iOS FRIENDLY
 ================================ */
 
-async function playBirthdayMusic() {
+// async function playBirthdayMusic() {
 
-  if (!birthdayMusic) {
-    console.error("❌ birthdayMusic element not found!");
-    return;
-  }
+//   if (!birthdayMusic) {
+//     console.error("❌ birthdayMusic element not found!");
+//     return;
+//   }
 
-  try {
+//   try {
 
-    birthdayMusic.volume = 1;
-    birthdayMusic.currentTime = 0;
+//     birthdayMusic.volume = 1;
+//     birthdayMusic.currentTime = 0;
 
-    await birthdayMusic.play();
+//     await birthdayMusic.play();
 
-    console.log("🎵 Birthday music is playing!");
+//     console.log("🎵 Birthday music is playing!");
 
-  } catch (error) {
+//   } catch (error) {
 
-    console.error("❌ Audio failed to play:", error);
+//     console.error("❌ Audio failed to play:", error);
 
-  }
+//   }
 
-}
+// }
 
 
 /* ================================
    MAIN BUTTON
 ================================ */
 
-mailButton?.addEventListener("click", () => {
+mailButton?.addEventListener("click", async () => {
 
-  // IMPORTANT:
-  // Keep play() directly inside the user's click event.
-  openMail();
-  playBirthdayMusic();
+    openMail();
+
+    if (!birthdayMusic) {
+        console.error("Audio element not found!");
+        return;
+    }
+
+    try {
+        birthdayMusic.volume = 1;
+        birthdayMusic.currentTime = 0;
+
+        await birthdayMusic.play();
+
+        console.log("🎵 Music playing!");
+
+    } catch (error) {
+        console.error("❌ Audio failed:", error);
+    }
 
 });
 
